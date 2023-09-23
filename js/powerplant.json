@@ -1,4 +1,42 @@
-var vg_1 = "uspowerplant.vg.json";
-vegaEmbed("#map", vg_1).then(function(result) {
-// Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-}).catch(console.error);
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Distribution of Power Plant in US",
+  "width": 800,
+  "height": 400,
+  "layer": [
+    {
+      "data": { 
+        "url": "https://raw.githubusercontent.com/ChuaJunJie/3179/main/data/ne_110m_admin_0_countries.json",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "projection": {"type": "albersUsa"},
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eee",
+        "stroke": "#757575",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": { 
+        "url": "https://raw.githubusercontent.com/ChuaJunJie/3179/main/data/powerplants%20(global)%20-%20global_power_plants_modified.csv"
+      },
+      "mark": {
+        "type": "circle"
+      },
+      "encoding": {
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "longitude":{
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "color": {"value": "#ff0000"},
+        "opacity": {"value": 0.1},
+        "size": {"value": 6}
+      }
+    }
+  ]
+}
